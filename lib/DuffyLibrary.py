@@ -37,7 +37,6 @@ class DuffyLibrary(object):
             api_key=os.environ['CICO_API_KEY']
         )
 
-
     def populate_a_duffy_node(self, **kwargs):
         self._setup_cico_connection()
         self.populate_duffy_nodes(1, **kwargs)
