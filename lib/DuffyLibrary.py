@@ -56,15 +56,49 @@ class DuffyLibrary(object):
     def on_the_duffy_node(self):
         self.exec_nodes = self.nodes
 
+    @single_node
+    def on_the_first_duffy_node(self):
+        self.exec_nodes = self.nodes[0]
+
     def on_the_duffy_nodes(self):
         self.exec_nodes = self.nodes
+
+    def i_run_locally(self, *args):
+        subprocess.check_call(args)
 
     def i_run(self, *args):
         self._exec_ssh_command(*args)
 
+    def i_copy_the_workspace(self):
+        self.i_copy_the_workspace_to_a_duffy_node(0)
+
+    def i_fetch_the_srpm(self):
+        self._exec_sftp_command(self, 'ws/*.src.rpm', os.environ['WORKSPACE'])
+
+    def i_copy_the_workspace_to_the_duffy_nodes(self, node):
+        for node in self.exec_nodes.values():
+            rsync_command = ['rsync']
+            rsync_command.append(node['ip_address'])
+            rsync_command.append('-e')
+            rsync_command.append('ssh -o UserKnownHostsFile=/dev/null -o StrictHostKeyChecking=no -l root')
+            rsync_command.append('-rlpt')
+            rsync_command.append(os.environ['WORKSPACE'] + '/')
+            rsync_command.append(node['ip_address'] + ':ws')
+            subprocess.check_call(rsync_command)
+
     def it_returns(self, value):
         for code in self.exit_codes:
             assert code == int(value), 'Should have returned %s, returned %s.' % (code, value)
+
+    def _exec_sftp_command(self, *args):
+        exit_codes = []
+        for node in self.exec_nodes.values():
+            scp_command = ['scp']
+            scp_command.extend(['-o', 'UserKnownHostsFile=/dev/null'])
+            scp_command.extend(['-o', 'StrictHostKeyChecking=no'])
+            scp_command.append('%s@%s' ('root', node['ip_address']))
+            scp_command.extend(args)
+            exit_codes.append(subprocess.check_call(scp_command))
 
     def _exec_ssh_command(self, *args):
         exit_codes = []
