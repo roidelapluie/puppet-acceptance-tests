@@ -1,3 +1,5 @@
+.PHONY: rpm
+
 test: test-dryrun
 	pybot tests
 
