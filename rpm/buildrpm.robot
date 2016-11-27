@@ -1,6 +1,4 @@
 *** Settings ***
-Test Setup          Populate 2 Duffy nodes
-Test Teardown       Release the Duffy nodes
 Library             ../lib/DuffyLibrary.py
 Resource            ../lib/basic.robot
 
@@ -25,7 +23,7 @@ I build a SRPM from the specfile
     I run rpmbuild
 
 I build the spec file in CBS
-    On the first Duffy node
+    On the Duffy node
     I copy the workspace
     I build a SRPM from the specfile
     I fetch the SRPM
@@ -34,10 +32,14 @@ I build the spec file in CBS
 
 *** Test cases ***
 I build the RPM from a Pull Request
+    [Teardown]  Release the Duffy nodes
     Pass Execution if  'ghprbPullId' not in os.environ   Skipping because ghprbPullId is not set
+    Populate a Duffy node
     I make the spec file unique
     I build the spec file in CBS
 
 I build the RPM from a branch
+    [Teardown]  Release the Duffy nodes
     Pass Execution if  'ghprbPullId' in os.environ   Skipping because ghprbPullId is set
+    Populate a Duffy node
     I build the spec file in CBS
