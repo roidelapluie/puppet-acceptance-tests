@@ -36,8 +36,8 @@ I scratch build the spec file in CBS
     I prepare the SRPM
     ${filename} =   Get Glob File  %{WORKSPACE}/*.src.rpm
     I run locally   cbs  build  --wait  --scratch  %{BUILDTARGET}   ${filename}
-    ${filename} =   Get Glob File  %{WORKSPACE}/*.src.rpm
     I run locally   rm   ${filename}
+    I run   bash    -c      rm *.src.rpm
 
 I build the spec file in CBS
     I prepare the SRPM
