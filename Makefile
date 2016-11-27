@@ -1,6 +1,9 @@
 test: test-dryrun
 	pybot tests
 
+rpm:
+	pybot rpm
+
 rpm-dryrun:
 	pybot --dryrun rpm
 
