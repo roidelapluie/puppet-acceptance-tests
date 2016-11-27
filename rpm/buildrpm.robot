@@ -37,13 +37,14 @@ I scratch build the spec file in CBS
     ${filename} =   Get Glob File  %{WORKSPACE}/*.src.rpm
     I run locally   cbs  build  --wait  --scratch  %{BUILDTARGET}   ${filename}
     I run locally   rm   ${filename}
-    I run   bash    -c      rm *.src.rpm
+    I run   rm -rf SRPMS
 
 I build the spec file in CBS
     I prepare the SRPM
     ${filename} =   Get Glob File  %{WORKSPACE}/*.src.rpm
     I run locally   cbs  build  --wait  %{BUILDTARGET}   ${filename}
     I run locally   rm   ${filename}
+    I run   rm -rf SRPMS
 
 
 *** Test cases ***
