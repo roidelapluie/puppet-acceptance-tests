@@ -72,7 +72,7 @@ class DuffyLibrary(object):
     def i_fetch_the_srpm(self):
         self._exec_sftp_command(self, 'ws/*.src.rpm', os.environ['WORKSPACE'])
 
-    def i_copy_the_workspace(self):
+    def i_rsync_the_workspace(self):
         for node in self.exec_nodes:
             rsync_command = ['rsync']
             rsync_command.append(node['ip_address'])

@@ -22,6 +22,10 @@ I build a SRPM from the specfile
     I fetch the sources
     I run rpmbuild
 
+I copy the workspace
+    I install   rsync
+    I rsync the workspace
+
 I build the spec file in CBS
     On the Duffy node
     I copy the workspace
