@@ -75,7 +75,6 @@ class DuffyLibrary(object):
     def i_rsync_the_workspace(self):
         for node in self.exec_nodes:
             rsync_command = ['rsync']
-            rsync_command.append(node['ip_address'])
             rsync_command.append('-e')
             rsync_command.append('ssh -o UserKnownHostsFile=/dev/null -o StrictHostKeyChecking=no -l root')
             rsync_command.append('-rlpt')
