@@ -5,11 +5,5 @@ Library             ../lib/DuffyLibrary.py
 Resource            ../lib/basic.robot
 
 *** Test cases ***
-Admin can call the facter cli
-    On the Duffy node
-    I successfully run  facter
-
-Admin can call facter --version
-    On the Duffy node
-    I successfully run  facter   --version
-
+We build the RPM for a Pull Request
+    Pass Execution if  'ghprbPullId' not in os.environ   Skipping because ghprbPullId is not set

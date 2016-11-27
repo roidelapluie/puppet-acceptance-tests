@@ -1,9 +1,8 @@
 test: test-dryrun
 	pybot tests
-	pybot --dryrun facter
 
-facter-dryrun:
-	pybot --dryrun facter
+rpm-dryrun:
+	pybot --dryrun rpm
 
-test-dryrun: facter-dryrun
+test-dryrun: rpm-dryrun
 	pybot --dryrun tests
