@@ -58,7 +58,7 @@ class DuffyLibrary(object):
         self.exec_nodes = self.nodes
 
     def on_the_first_duffy_node(self):
-        self.exec_nodes = self.nodes[0]
+        self.exec_nodes = [self.nodes[0]]
 
     def on_the_duffy_nodes(self):
         self.exec_nodes = self.nodes
