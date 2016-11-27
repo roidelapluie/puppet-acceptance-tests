@@ -70,7 +70,7 @@ class DuffyLibrary(object):
         self._exec_ssh_command(*args)
 
     def i_fetch_the_srpm(self):
-        self._exec_sftp_command(self, 'ws/*.src.rpm', os.environ['WORKSPACE'])
+        self._exec_sftp_command('ws/*.src.rpm', os.environ['WORKSPACE'])
 
     def i_rsync_the_workspace(self):
         for node in self.exec_nodes:
@@ -91,7 +91,7 @@ class DuffyLibrary(object):
             scp_command = ['scp']
             scp_command.extend(['-o', 'UserKnownHostsFile=/dev/null'])
             scp_command.extend(['-o', 'StrictHostKeyChecking=no'])
-            scp_command.append('%s@%s' % ('root', node['ip_address']))
+            scp_command.append('%s@%s:%s' % ('root', node['ip_address'], args.pop(0)))
             scp_command.extend(args)
             subprocess.check_call(scp_command)
 
