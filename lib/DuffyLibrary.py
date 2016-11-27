@@ -6,6 +6,7 @@ import os
 import subprocess
 from cicoclient.wrapper import CicoWrapper
 from robot.api.deco import keyword
+import glob
 
 def single_node(func):
     def check_single_node(suite, *args, **kwargs):
@@ -56,6 +57,11 @@ class DuffyLibrary(object):
     @single_node
     def on_the_duffy_node(self):
         self.exec_nodes = self.nodes
+
+    def get_glob_file(self, filename):
+        files = glob.glob(filename)
+        assert len(files) == 1, "Expected 1 file, found %s: %s" % (len(files), files)
+        return files[0]
 
     def on_the_first_duffy_node(self):
         self.exec_nodes = [self.nodes[0]]

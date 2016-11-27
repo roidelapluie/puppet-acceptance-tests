@@ -31,7 +31,8 @@ I build the spec file in CBS
     I copy the workspace
     I build a SRPM from the specfile
     I fetch the SRPM
-    I run locally   cbs  build  --wait  --scratch  %{BUILDTARGET} %{WORKSPACE}/*.src.rpm
+    ${filename} =   Get Glob File  *.src.rpm
+    I run locally   cbs  build  --wait  --scratch  %{BUILDTARGET}   %{WORKSPACE}/${filename}
 
 
 *** Test cases ***
