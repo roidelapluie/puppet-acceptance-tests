@@ -2,7 +2,7 @@
 Test Setup          Populate 3 Duffy nodes
 Test Teardown       Release the Duffy nodes
 Library             ../lib/DuffyLibrary.py
-Resource            ../lib/keywords.robot
+Resource            ../lib/basic.robot
 
 *** Test cases ***
 We are able to run /bin/true
