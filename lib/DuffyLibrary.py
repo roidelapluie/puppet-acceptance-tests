@@ -58,7 +58,7 @@ class DuffyLibrary(object):
     def on_the_duffy_nodes(self):
         self.exec_nodes = self.nodes
 
-    def when_i_run(self, *args):
+    def i_run(self, *args):
         self._exec_ssh_command(*args)
 
     def it_returns(self, value):
