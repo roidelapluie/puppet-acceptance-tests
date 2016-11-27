@@ -7,7 +7,7 @@ rpm:
 	pybot rpm
 
 rpm-dryrun:
-	pybot --dryrun rpm
+	pybot --loglevel DEBUG --dryrun rpm
 
 test-dryrun: rpm-dryrun
 	pybot --dryrun tests
