@@ -14,7 +14,6 @@ def single_node(func):
     return check_single_node
 
 class DuffyLibrary(object):
-    ROBOT_LIBRARY_SCOPE = 'TEST SUITE'
 
     def __init__(self):
         # The connection to Duffy
