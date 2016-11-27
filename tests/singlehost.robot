@@ -1,6 +1,6 @@
 *** Settings ***
-Suite Setup         Populate a Duffy node
-Suite Teardown      Release the Duffy nodes
+Test Setup          Populate a Duffy node
+Test Teardown       Release the Duffy nodes
 Library             ../lib/DuffyLibrary.py
 Resource            ../lib/keywords.robot
 
