@@ -1,6 +1,6 @@
 *** Settings ***
-Suite Setup         Populate Duffy nodes    count=3
-Suite Teardown      Release the Duffy nodes
+Test Setup          Populate 3 Duffy nodes
+Test Teardown       Release the Duffy nodes
 Library             ../lib/DuffyLibrary.py
 Resource            ../lib/keywords.robot
 

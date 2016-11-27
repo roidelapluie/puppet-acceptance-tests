@@ -5,6 +5,7 @@
 import os
 import subprocess
 from cicoclient.wrapper import CicoWrapper
+from robot.api.deco import keyword
 
 def single_node(func):
     def check_single_node(suite, *args, **kwargs):
@@ -39,12 +40,12 @@ class DuffyLibrary(object):
 
     def populate_a_duffy_node(self, **kwargs):
         self._setup_cico_connection()
-        assert len(self.nodes) == 0, 'A node has already been populated'
-        self.nodes, self.ssid = self.api.node_get(**kwargs)
+        self.populate_duffy_nodes(1, **kwargs)
 
-    def populate_duffy_nodes(self, count, **kwargs):
+    @keyword('Populate ${count:\d} Duffy nodes')
+    def populate_duffy_nodes(self, count=None, **kwargs):
         self._setup_cico_connection()
-        assert len(self.nodes) == 0, 'A node has already been populated'
+        assert len(self.nodes) == 0, 'Nodes have already been populated'
         self.nodes, self.ssid = self.api.node_get(count=count, **kwargs)
 
     def release_the_duffy_nodes(self):
