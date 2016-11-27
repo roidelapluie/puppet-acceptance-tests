@@ -70,7 +70,7 @@ class DuffyLibrary(object):
         self._exec_ssh_command(*args)
 
     def i_fetch_the_srpm(self):
-        self._exec_sftp_command('ws/*.src.rpm', os.environ['WORKSPACE'])
+        self._exec_sftp_command('SRPMS/*.src.rpm', os.environ['WORKSPACE'])
 
     def i_rsync_the_workspace(self):
         for node in self.exec_nodes:
