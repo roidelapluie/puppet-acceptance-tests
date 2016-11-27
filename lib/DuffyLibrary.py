@@ -45,8 +45,9 @@ class DuffyLibrary(object):
     def populate_duffy_nodes(self, count=None, **kwargs):
         self._setup_cico_connection()
         assert len(self.nodes) == 0, 'Nodes have already been populated'
-        self.nodes, self.ssid = self.api.node_get(count=count, retry_count=10,
+        nodes, self.ssid = self.api.node_get(count=count, retry_count=10,
                                                   retry_interval=60, **kwargs)
+        self.nodes = nodes.values()
 
     def release_the_duffy_nodes(self):
         if self.ssid:
@@ -75,7 +76,7 @@ class DuffyLibrary(object):
         self._exec_sftp_command(self, 'ws/*.src.rpm', os.environ['WORKSPACE'])
 
     def i_copy_the_workspace_to_the_duffy_nodes(self, node):
-        for node in self.exec_nodes.values():
+        for node in self.exec_nodes:
             rsync_command = ['rsync']
             rsync_command.append(node['ip_address'])
             rsync_command.append('-e')
@@ -91,7 +92,7 @@ class DuffyLibrary(object):
 
     def _exec_sftp_command(self, *args):
         exit_codes = []
-        for node in self.exec_nodes.values():
+        for node in self.exec_nodes:
             scp_command = ['scp']
             scp_command.extend(['-o', 'UserKnownHostsFile=/dev/null'])
             scp_command.extend(['-o', 'StrictHostKeyChecking=no'])
@@ -101,7 +102,7 @@ class DuffyLibrary(object):
 
     def _exec_ssh_command(self, *args):
         exit_codes = []
-        for node in self.exec_nodes.values():
+        for node in self.exec_nodes:
             ssh_command = ['ssh']
             ssh_command.append(node['ip_address'])
             ssh_command.append('-t')
