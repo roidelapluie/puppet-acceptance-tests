@@ -87,14 +87,13 @@ class DuffyLibrary(object):
             assert code == int(value), 'Should have returned %s, returned %s.' % (code, value)
 
     def _exec_sftp_command(self, *args):
-        exit_codes = []
         for node in self.exec_nodes:
             scp_command = ['scp']
             scp_command.extend(['-o', 'UserKnownHostsFile=/dev/null'])
             scp_command.extend(['-o', 'StrictHostKeyChecking=no'])
-            scp_command.append('%s@%s' ('root', node['ip_address']))
+            scp_command.append('%s@%s' % ('root', node['ip_address']))
             scp_command.extend(args)
-            exit_codes.append(subprocess.check_call(scp_command))
+            subprocess.check_call(scp_command)
 
     def _exec_ssh_command(self, *args):
         exit_codes = []

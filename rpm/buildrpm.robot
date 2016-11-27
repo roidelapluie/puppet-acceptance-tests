@@ -4,10 +4,10 @@ Resource            ../lib/basic.robot
 
 *** Keywords ***
 I fetch the sources
-    I run   spectool    -g  -C  ws  ws/%{SPECFILE}.spec
+    I successfully run   spectool    -g  -C  ws  ws/%{SPECFILE}.spec
 
 I run rpmbuild
-    I run   rpmbuild    --define    "_topdir /root"     --define    "_sourcedir workspace"  -bs     ws/%{SPECFILE}.spec
+    I successfully run   rpmbuild    --define    "_topdir /root"     --define    "_sourcedir ws"  -bs     ws/%{SPECFILE}.spec
 
 I make the specfile unique
     I run locally  sed  s/^Release:.*/Release: pr%{ghprbPullId}job%{BUILD_NUMBER}/  -i  %{WORKSPACE}/%{SPECFILE}.spec
