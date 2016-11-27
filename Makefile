@@ -1,5 +1,8 @@
-test:
+test: test-dryrun
 	pybot tests
 
-test-dryrun:
+rpm-dryrun:
+	pybot --dryrun rpm
+
+test-dryrun: rpm-dryrun
 	pybot --dryrun tests
