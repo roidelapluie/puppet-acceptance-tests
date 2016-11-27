@@ -45,7 +45,8 @@ class DuffyLibrary(object):
     def populate_duffy_nodes(self, count=None, **kwargs):
         self._setup_cico_connection()
         assert len(self.nodes) == 0, 'Nodes have already been populated'
-        self.nodes, self.ssid = self.api.node_get(count=count, **kwargs)
+        self.nodes, self.ssid = self.api.node_get(count=count, retry_count=10,
+                                                  retry_interval=60, **kwargs)
 
     def release_the_duffy_nodes(self):
         if self.ssid:
