@@ -98,7 +98,7 @@ class DuffyLibrary(object):
     def i_add_a_cbs_yum_repo(self, reponame):
         with NamedTemporaryFile() as f:
             f.write("[%s]\n" % reponame)
-            f.write("baseurl=http://cbs.centos.org/repos/%s/\n" % reponame)
+            f.write("baseurl=http://cbs.centos.org/repos/%s/$basearch/os/\n" % reponame)
             #FIXME
             f.write("gpgcheck=0\n")
             f.flush()
