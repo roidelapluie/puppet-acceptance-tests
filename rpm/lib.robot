@@ -42,6 +42,7 @@ I scratch build the spec file in CBS
 I build the spec file in CBS
     I prepare the SRPM
     ${filename} =   Get Glob File  %{WORKSPACE}/*.src.rpm
+    I try to run locally   cbs  add-pkg  --owner  roidelapluie  %{BUILDTAG}-candidate  %{SPECFILE}
     I run locally   cbs  build  --wait  %{BUILDTARGET}   ${filename}
     I run locally   rm   ${filename}
     I run   rm -rf SRPMS
