@@ -100,7 +100,7 @@ class DuffyLibrary(object):
             f.write("[%s]\n" % reponame)
             f.write("baseurl=http://cbs.centos.org/repos/%s/\n" % reponame)
             #FIXME
-            f.write("gpgcheck=0\n" % reponame)
+            f.write("gpgcheck=0\n")
             f.flush()
             self._exec_sftp_send_command(f.name,'/etc/yum.repos.d/%s.repo' % reponame)
 
