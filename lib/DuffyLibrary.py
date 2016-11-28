@@ -105,8 +105,8 @@ class DuffyLibrary(object):
             scp_command = ['scp']
             scp_command.extend(['-o', 'UserKnownHostsFile=/dev/null'])
             scp_command.extend(['-o', 'StrictHostKeyChecking=no'])
-            scp_command.append('%s@%s:%s' % ('root', node['ip_address'], args[0]))
-            scp_command.append(args[1])
+            scp_command.append(args[0])
+            scp_command.append('%s@%s:%s' % ('root', node['ip_address'], args[1]))
             subprocess.check_call(scp_command)
 
     def _exec_sftp_get_command(self, *args):
@@ -114,8 +114,8 @@ class DuffyLibrary(object):
             scp_command = ['scp']
             scp_command.extend(['-o', 'UserKnownHostsFile=/dev/null'])
             scp_command.extend(['-o', 'StrictHostKeyChecking=no'])
-            scp_command.append(args[0])
-            scp_command.append('%s@%s:%s' % ('root', node['ip_address'], args[1]))
+            scp_command.append('%s@%s:%s' % ('root', node['ip_address'], args[0]))
+            scp_command.append(args[1])
             subprocess.check_call(scp_command)
 
     def _exec_ssh_command(self, *args):
