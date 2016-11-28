@@ -7,4 +7,3 @@ I successfully run
 I install
     [Arguments]         ${package}
     I successfully run  yum  install  -y  ${package}
-    It returns          0
