@@ -76,7 +76,7 @@ class DuffyLibrary(object):
         self._exec_ssh_command(*args)
 
     def i_fetch_the_srpm(self):
-        self._exec_sftp_command('SRPMS/*.src.rpm', os.environ['WORKSPACE'])
+        self._exec_sftp_get_command('SRPMS/*.src.rpm', os.environ['WORKSPACE'])
 
     def i_rsync_the_workspace(self):
         for node in self.exec_nodes:
@@ -98,16 +98,24 @@ class DuffyLibrary(object):
             f.write("baseurl=http://cbs.centos.org/repos/%s/\n" % reponame)
             #FIXME
             f.write("gpgcheck=0\n" % reponame)
-            self._exec_sftp_command(self.name,'/etc/yum.repos.d/%s.repo' % reponame)
+            self._exec_sftp_send_command(f.name,'/etc/yum.repos.d/%s.repo' % reponame)
 
-
-    def _exec_sftp_command(self, *args):
+    def _exec_sftp_send_command(self, *args):
         for node in self.exec_nodes:
             scp_command = ['scp']
             scp_command.extend(['-o', 'UserKnownHostsFile=/dev/null'])
             scp_command.extend(['-o', 'StrictHostKeyChecking=no'])
             scp_command.append('%s@%s:%s' % ('root', node['ip_address'], args[0]))
             scp_command.append(args[1])
+            subprocess.check_call(scp_command)
+
+    def _exec_sftp_get_command(self, *args):
+        for node in self.exec_nodes:
+            scp_command = ['scp']
+            scp_command.extend(['-o', 'UserKnownHostsFile=/dev/null'])
+            scp_command.extend(['-o', 'StrictHostKeyChecking=no'])
+            scp_command.append(args[0])
+            scp_command.append('%s@%s:%s' % ('root', node['ip_address'], args[1]))
             subprocess.check_call(scp_command)
 
     def _exec_ssh_command(self, *args):
