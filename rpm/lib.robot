@@ -45,19 +45,3 @@ I build the spec file in CBS
     I run locally   cbs  build  --wait  %{BUILDTARGET}   ${filename}
     I run locally   rm   ${filename}
     I run   rm -rf SRPMS
-
-
-*** Test cases ***
-I build the RPM from a Pull Request
-    [Teardown]  Release the Duffy nodes
-    Pass Execution if  'ghprbPullId' not in os.environ   Skipping because ghprbPullId is not set
-    Populate a Duffy node
-    I scratch build the spec file in CBS
-    I make the spec file unique
-    I build the spec file in CBS
-
-I build the RPM from a branch
-    [Teardown]  Release the Duffy nodes
-    Pass Execution if  'ghprbPullId' in os.environ   Skipping because ghprbPullId is set
-    Populate a Duffy node
-    I build the spec file in CBS

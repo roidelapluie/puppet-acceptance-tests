@@ -6,6 +6,7 @@ import os
 import subprocess
 from cicoclient.wrapper import CicoWrapper
 from robot.api.deco import keyword
+from tempfile import NamedTemporaryFile
 import glob
 
 def single_node(func):
@@ -90,6 +91,15 @@ class DuffyLibrary(object):
     def it_returns(self, value):
         for code in self.exit_codes:
             assert code == int(value), 'Should have returned %s, returned %s.' % (code, value)
+
+    def i_add_a_cbs_yum_repo(self, reponame):
+        with open(NamedTemporaryFile()) as f:
+            f.write("[%s]\n" % reponame)
+            f.write("baseurl=http://cbs.centos.org/repos/%s/\n" % reponame)
+            #FIXME
+            f.write("gpgcheck=0\n" % reponame)
+            self._exec_sftp_command(self.name,'/etc/yum.repos.d/%s.repo' % reponame)
+
 
     def _exec_sftp_command(self, *args):
         for node in self.exec_nodes:
