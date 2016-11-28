@@ -93,7 +93,7 @@ class DuffyLibrary(object):
             assert code == int(value), 'Should have returned %s, returned %s.' % (code, value)
 
     def i_add_a_cbs_yum_repo(self, reponame):
-        with open(NamedTemporaryFile()) as f:
+        with NamedTemporaryFile() as f:
             f.write("[%s]\n" % reponame)
             f.write("baseurl=http://cbs.centos.org/repos/%s/\n" % reponame)
             #FIXME
