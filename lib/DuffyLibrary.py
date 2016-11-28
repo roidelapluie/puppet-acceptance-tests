@@ -70,7 +70,7 @@ class DuffyLibrary(object):
         self.exec_nodes = self.nodes
 
     def i_try_to_run_locally(self, *args):
-        self.exit_codes = [subprocess.call(*args)]
+        self.exit_codes = [subprocess.call(args)]
 
     def i_run_locally(self, *args):
         subprocess.check_call(args)
