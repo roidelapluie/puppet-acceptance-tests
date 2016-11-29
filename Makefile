@@ -1,13 +1,19 @@
 .PHONY: rpm
 
+WORKSPACE ?= .
+
+test-dryrun:
+	pybot --dryrun .
+
 test: test-dryrun
 	pybot tests
 
 rpm:
-	pybot --loglevel DEBUG rpm/pullrequest.robot
+	pybot --outputdir $(WORKSPACE)/results/robot/rpm rpm/pullrequest.robot
 
 rpm-dryrun:
-	pybot --loglevel DEBUG --dryrun rpm
+	pybot --outputdir $(WORKSPACE)/results/robot/rpm --loglevel DEBUG --dryrun rpm
 
-test-dryrun: rpm-dryrun
-	pybot --dryrun tests
+facter: rpm
+	pybot --outputdir $(WORKSPACE)/results/robot/$@ --loglevel DEBUG --dryrun $@
+

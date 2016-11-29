@@ -10,11 +10,11 @@ I run rpmbuild
     I successfully run   rpmbuild    --define    "_topdir /root"     --define    "_sourcedir ws"  -bs     ws/%{SPECFILE}.spec
 
 I make the specfile unique
-    I run locally  sed  s/^Release:.*/Release: pr%{ghprbPullId}job%{BUILD_NUMBER}/  -i  %{WORKSPACE}/%{SPECFILE}.spec
-    I run locally  sed  /Release: pr%{ghprbPullId}job%{BUILD_NUMBER}/aProvides: facter-git-commit(%{ghprbActualCommit})  -i  %{WORKSPACE}/%{SPECFILE}.spec
-    I run locally  sed  /Release: pr%{ghprbPullId}job%{BUILD_NUMBER}/aProvides: facter-pull-request(%{ghprbPullId})  -i  %{WORKSPACE}/%{SPECFILE}.spec
-    I run locally  sed  /Release: pr%{ghprbPullId}job%{BUILD_NUMBER}/aProvides: facter-pull-request-build-id(pr%{ghprbPullId}job%{BUILD_NUMBER})  -i  %{WORKSPACE}/%{SPECFILE}.spec
-    I run locally  sed  /Release: pr%{ghprbPullId}job%{BUILD_NUMBER}/aEpoch: %{BUILD_NUMBER}  -i  %{WORKSPACE}/%{SPECFILE}.spec
+    I run locally  sed  s/^Release:.*/Release: %{RELEASE}/  -i  %{WORKSPACE}/%{SPECFILE}.spec
+    I run locally  sed  /Release: %{RELEASE}/aProvides: facter-git-commit(%{ghprbActualCommit})  -i  %{WORKSPACE}/%{SPECFILE}.spec
+    I run locally  sed  /Release: %{RELEASE}/aProvides: facter-pull-request(%{ghprbPullId})  -i  %{WORKSPACE}/%{SPECFILE}.spec
+    I run locally  sed  /Release: %{RELEASE}/aProvides: facter-pull-request-build-id(%{RELEASE})  -i  %{WORKSPACE}/%{SPECFILE}.spec
+    I run locally  sed  /Release: %{RELEASE}/aEpoch: %{BUILD_NUMBER}  -i  %{WORKSPACE}/%{SPECFILE}.spec
 
 I build a SRPM from the specfile
     I install   rpmdevtools
@@ -46,3 +46,15 @@ I build the spec file in CBS
     I run locally   cbs  build  --wait  %{BUILDTARGET}   ${filename}
     I run locally   rm   ${filename}
     I run   rm -rf SRPMS
+
+I install the package from a pull request
+    I add a CBS yum repo    %{BUILDTAG}-candidate
+    I successfully run  yum  --setopt  metadata_expire=0  install  -y  "%{PACKAGE}-pull-request-build-id(%{RELEASE})"
+
+I install the package from candidate
+    I add a CBS yum repo    %{BUILDTAG}-candidate
+    I successfully run  yum  --setopt  metadata_expire=0  install  -y  "%{PACKAGE}"
+
+I install the package
+    Run Keyword If  'RELEASE' in os.environ     I install the package from a pull request
+    Run Keyword If  'RELEASE' in os.environ     I install the package from candidate
