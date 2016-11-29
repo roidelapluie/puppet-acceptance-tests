@@ -15,5 +15,5 @@ rpm-dryrun:
 	pybot --outputdir $(WORKSPACE)/results/robot/rpm --loglevel DEBUG --dryrun rpm
 
 facter: rpm
-	pybot --outputdir $(WORKSPACE)/results/robot/$@ --loglevel DEBUG --dryrun $@
+	pybot --outputdir $(WORKSPACE)/results/robot/$@ --loglevel DEBUG $@
 
